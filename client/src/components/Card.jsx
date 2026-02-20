@@ -1,11 +1,11 @@
 import React from "react";
 
 function Card(props) {
-    <div className="container mt-10">
+    <div className="card-container mt-10">
 
-        <div div className="container flex-wrap p-5 gap-1 mb-1">
+        <div className="card-container flex-wrap p-5 gap-1 mb-1">
             <b className="title">{props.title}</b>
-            <div className="img-container">
+            <div className="card-img">
                 <img src={props.imgUrl} alt="img"/>
             </div>
         </div>
@@ -17,12 +17,12 @@ function Card(props) {
         </div>
 
         <div className="info">
-            <div className="source flex items-center gap-2">
+            <div className="source-info flex items-center gap-2">
                 <span className="font-semibold">Source: </span>
                 <a href="{props.url}" target="_blank" className="link underline break-word">{props.source.substring(0,70)}</a>
             </div>
 
-            <div className="author-published flex flex-col">
+            <div className="author-published-info flex flex-col">
                 <p className="author">
                     <span>Author: {props.author}</span>
                 </p>
@@ -31,6 +31,7 @@ function Card(props) {
                 </p>
             </div>
         </div>
-
     </div>
 }
+
+export default Card;

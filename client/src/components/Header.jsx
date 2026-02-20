@@ -1,13 +1,13 @@
-import React, {userState, userEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 //import logo from '../assets/logo.png';
-import countries from './countries';
+import country from './country';
 
 function Header() {
-    const [active, setActive] = userState(false);
-    const [showCountryDropdown, setShowCountryDropdown] = userState(false);
-    const [showCategoryDropdown, setShowCategoryDropdown] = userState(false);
-    const [theme, setTheme] = userState("light-theme");
+    const [active, setActive] = useState(false);
+    const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+    const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+    const [theme, setTheme] = useState("light-theme");
     const categories = ['general', 'business', 'entertainment', 'health', 'science', 'sports', 'technology'];
     
     useEffect(() => {
@@ -44,11 +44,21 @@ function Header() {
                     </li>
 
                     <ul className={showCountryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
-                        {Countries.map((element, index)=>(
+                        {country.map((element, index)=>(
                             <li key={index} onClick={() => setShowCountryDropdown(false)}>
                                 <Link to={`/country/${element?.iso_2_alpha}`} className="flex gap-3" onClick={()=>{setActive(!active)}}>
                                     <img src={element?.png} srcSet={`https://flagcdn.com/32x24/${element?.iso_2_alpha}.png 2x`}></img>
                                     <span>{element?.countryName}</span>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
+                        {categories.map((element, index) => (
+                            <li key={index} onClick={() => setShowCategoryDropdown(false)}>
+                                <Link to={`/headlines?category=${element}`} className="flex gap-3" onClick={()=>{setActive(!active)}}>
+                                    <span>{element.charAt(0).toUpperCase() + element.slice(1)}</span>
                                 </Link>
                             </li>
                         ))}
