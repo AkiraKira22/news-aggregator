@@ -5,10 +5,10 @@ import { useParams } from "react-router-dom";
 
 function TopHeadline() {
     const params = useParams();
-    const [ data, setData ] = useState([]);
-    const [ page, setPage ] = useState(1);
-    const [ totalResults, setTotalResults ] = useState(0);
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [data, setData] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
 
     function handlePrevPage() {
         setPage(page - 1);
@@ -24,32 +24,32 @@ function TopHeadline() {
         setIsLoading(true);
         const categoryParam = params.category ? `&category=${params.category}` : '';
         fetch(`http://localhost:3000/top-headlines?language=en&page=${page}&pageSize=${pageSize}${categoryParam}`)
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Network response was not ok');
-        })
-        .then (json => {
-            if (json && json.data) {
-                setTotalResults(json.data.totalResults || 0);
-                setData(json.data.articles || []);
-            }
-            setIsLoading(false);
-        })
-        .catch (error => {
-            console.error('Error fetching data:', error);
-            setData([]);
-            setTotalResults(0);
-            setIsLoading(false);
-        });
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok');
+            })
+            .then(json => {
+                if (json && json.data) {
+                    setTotalResults(json.data.totalResults || 0);
+                    setData(json.data.articles || []);
+                }
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setData([]);
+                setTotalResults(0);
+                setIsLoading(false);
+            });
     }, [page, params.category])
 
     return (
         <>
             <div className='my-10 cards grid lg:place-content-center md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 xs:grid-cols-1 xs:gap-4 md:gap-10 lg:gap-14 md:px-16 xs:p-3 '>
-                {isLoading ? (data.length > 0 ? ( data.map((element, index) => (
-                    <Card 
+                {!isLoading ? (data.length > 0 ? (data.map((element, index) => (
+                    <Card
                         title={element.title}
                         description={element.description}
                         urlToImage={element.urlToImage}
@@ -59,17 +59,17 @@ function TopHeadline() {
                         source={element.source.name}
                         key={index}
                     />
-                    
+
                 ))
-                ) :( 
+                ) : (
                     <p>No articles available for this category.</p>
                 )
-                ) :(
+                ) : (
                     <Loader />
                 )}
 
             </div>
-            {isLoading && data.length > 0 && (
+            {!isLoading && data.length > 0 && (
                 <div className="pagination flex justify-center gap-14 my-10 items-center">
                     <button disabled={page <= 1} className="pagination-btn" onClick={() => handlePrevPage()}>Previous</button>
                     <p className="font-semibold">{page} of {Math.ceil(totalResults / pageSize)}</p>

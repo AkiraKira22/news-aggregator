@@ -10,7 +10,7 @@ function Header() {
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
     const [theme, setTheme] = useState("light-theme");
     const categories = ['general', 'business', 'entertainment', 'health', 'science', 'sports', 'technology'];
-    
+
     useEffect(() => {
         document.body.className = theme
     }, [theme]);
@@ -27,8 +27,8 @@ function Header() {
     return (
         <header>
             <nav className="fixed top-0 left-0 w-full h-auto bg-gray-800 z-10 flex items-center justify-around">
-                <h3 className="relative heading font-bold md:basis1/6 text-2xl xs:basis-4/12 z-50 md-5 mt-5">
-                News Aggregator
+                <h3 className="relative heading font-bold md:basis-1/6 text-2xl xs:basis-4/12 mt-5 mb-5 z-50">
+                    News Aggregator
                 </h3>
                 <ul className={"nav-ul flex gap-11 md:gap-14 xs:gap-12 lg:basis-3/6 md:basis 4/6 md:justify-end ${active ? 'active' : ''}"}>
                     <li>
@@ -40,7 +40,7 @@ function Header() {
                     {/* Category dropdown */}
                     <li className="dropdown-li">
                         <Link className="no-underline font-semibold flex-center gap-2" onClick={()=>{setShowCategoryDropdown(!showCategoryDropdown)}}>
-                            Category    
+                            Category
                         </Link>
                         <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
                             {categories.map((element, index) => (
@@ -56,7 +56,7 @@ function Header() {
                     {/* Country dropdown */}
                     <li className="dropdown-li">
                         <Link className="no-underline font-semibold flex-center gap-2" onClick={()=>{setShowCountryDropdown(!showCountryDropdown)}}>
-                            Country    
+                            Country
                         </Link>
                         <ul className={showCountryDropdown ? "dropdown p-2 show-dropdown" : "dropdown p-2"}>
                             {country.map((element, index)=>(
@@ -70,16 +70,19 @@ function Header() {
                         </ul>
                     </li>
 
-                    {/* Dark mode toggle*/}
-                    <li>
-                        <Link className="no-underline font-semibold" to="#" onClick={toggleTheme}>
-                            <input type="checkbox" className="checkbox" id="checkbox" />
-                            <label htmlFor="checkbox" className="checkbox-label">
-                                <i className="fas fa-moon"></i>
-                                <i className="fas fa-sun"></i>
-                                <span className="ball"></span>
-                            </label>
-                        </Link>
+                    <li className="flex items-center">
+                        <input
+                            type="checkbox"
+                            className="checkbox"
+                            id="checkbox"
+                            checked={theme === "dark-theme"}
+                            onChange={toggleTheme}
+                        />
+                        <label htmlFor="checkbox" className="checkbox-label">
+                            <i className="fas fa-moon"></i>
+                            <i className="fas fa-sun"></i>
+                            <span className="ball"></span>
+                        </label>
                     </li>
                 </ul>
             </nav>

@@ -26,12 +26,18 @@ function Card(props) {
           </div>
           <div className="origin flex flex-col">
             <p className="origin-item">
-              <span className="font-semibold">Author:</span>
+              <span className="font-semibold">Author: </span>
               {props.author}
             </p>
             <p className="origin-item">
-              <span className="font-semibold">Published At:</span>
-              ({props.publishedAt})
+              <span className="font-semibold">Published At: </span>
+              {props.publishedAt ? new Date(props.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              }) : 'N/A'}
             </p>
           </div>
         </div>
