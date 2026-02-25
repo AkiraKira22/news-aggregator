@@ -3,10 +3,6 @@ require ('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const { error } = require('console');
-const { stat } = require('fs');
-const { parse } = require('path');
-
 const app = express();
 
 app.use(cors());
@@ -44,20 +40,20 @@ function fetchNews(url, res) {
 }
 
 // Fetch news
-app.get('/news', (req, res) => {
+app.get('/all-news', (req, res) => {
     let pageSize = parseInt(req.query.pageSize) || 40;
     let page = parseInt(req.query.page) || 1;
-    let url = `https://newsapi.org/v2/everything?q=page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`;
+    let url = `https://newsapi.org/v2/everything?q=page=${page}&pageSize=${pageSize}&apiKey=${process.env.API_KEY}`;
     fetchNews(url, res);
 });
 
-// Headlines
-app.options('/headlines', cors());
-app.get('/headlines', (req, res) => {
+// Top Headlines
+app.options('/top-headlines', cors());
+app.get('/top-headlines', (req, res) => {
     let pageSize = parseInt(req.query.pageSize) || 80;
     let page = parseInt(req.query.page) || 1;
     let category = req.query.category || 'general';
-    let url = `https://newsapi.org/v2/top-headlines?category=${category}&language=en&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`;
+    let url = `https://newsapi.org/v2/top-headlines?category=${category}&language=en&page=${page}&pageSize=${pageSize}&apiKey=${process.env.API_KEY}`;
     fetchNews(url, res);
 });
 
@@ -67,7 +63,7 @@ app.get("/country/:iso", (req, res) => {
     let pageSize = parseInt(req.query.pageSize) || 80;
     let page = parseInt(req.query.page) || 1;
     const country = req.params.iso;
-    let url = `https://newsapi.org/v2/top-headlines?country=${country}&page=${page}&pageSize=${pageSize}&apiKey=${API_KEY}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&page=${page}&pageSize=${pageSize}&apiKey=${process.env.API_KEY}`;
     fetchNews(url, res);
 });
 

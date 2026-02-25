@@ -7,7 +7,7 @@ let twoLetterISO = [
   "us","ve","za"
 ];
 
-let isoCountries = {
+let isoCountry = {
   "ae": "United Arab Emirates",
   "ar": "Argentina",
   "at": "Austria",
@@ -63,25 +63,25 @@ let isoCountries = {
   "za": "South Africa"
 };
 
-let Countries = []
+let country = []
 twoLetterISO.forEach((element) => {
     let obj = {
         iso_2_alpha: element,
         png: `https://flagcdn.com/32x24/${element}.png`,
         countryName: getCountryName(element.toUpperCase()),
     }
-    Countries.push(obj);
+    country.push(obj);
 })
 
 function getCountryName(countryCode) {
-    if (isoCountries.hasOwnProperty(countryCode)) {
-        return isoCountries[countryCode];
+    if (isoCountry.hasOwnProperty(countryCode)) {
+        return isoCountry[countryCode];
     }
     else {
         return countryCode;
     }
 }
 
-console.log(countires)
+console.log(country)
 
-export default Countries;
+export default country;

@@ -1,36 +1,91 @@
 import React from "react";
 
 function Card(props) {
-    <div className="container mt-10">
-
-        <div div className="container flex-wrap p-5 gap-1 mb-1">
-            <b className="title">{props.title}</b>
-            <div className="img-container">
-                <img src={props.imgUrl} alt="img"/>
-            </div>
+  return (
+    <div className="card-container mt-10">
+      <div className="card-container flex flex-wrap p-5 gap-1 mb-1">
+        <b className="title">{props.title}</b>
+        <div className="card-container-img mx-auto">
+          <img className="card-container-img" src={props.urlToImage} alt="img" />
         </div>
-        
         <div className="description">
-            <p>
-                {props.description?.substring(0, 200)}
-            </p>
+          <p className="description-text leading-7">
+            {props.description?.substring(0, 200)}
+          </p>
         </div>
-
         <div className="info">
-            <div className="source flex items-center gap-2">
-                <span className="font-semibold">Source: </span>
-                <a href="{props.url}" target="_blank" className="link underline break-word">{props.source.substring(0,70)}</a>
-            </div>
-
-            <div className="author-published flex flex-col">
-                <p className="author">
-                    <span>Author: {props.author}</span>
-                </p>
-                <p className="published-at">
-                    <span>Published at: {props.publishedAt}</span>
-                </p>
-            </div>
+          <div className="source-info flex items-center gap-2">
+            <span className="font-semibold">Source:</span>
+            <a
+              href={props.url}
+              target="_blank"
+              className="link underline break-words"
+            >
+              {props.source.substring(0, 70)}
+            </a>
+          </div>
+          <div className="origin flex flex-col">
+            <p className="origin-item">
+              <span className="font-semibold">Author: </span>
+              {props.author}
+            </p>
+            <p className="origin-item">
+              <span className="font-semibold">Published At: </span>
+              {props.publishedAt ? new Date(props.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              }) : 'N/A'}
+            </p>
+          </div>
         </div>
+      </div>
 
+      {/* Card content with styles */}
+      <div className="flex lg:flex-row">
+        <div
+          className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+          style={{ backgroundImage: `url(${props.imageUrlLeft})` }}
+          title={props.imageLeftTitle}
+        ></div>
+        <div className="border rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div className="mb-8">
+            <p className="text-sm text-gray-600 flex items-center">
+              {props.memberIcon && (
+                <svg
+                  className="fill-current text-gray-500 w-3 h-3 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  {props.memberIcon}
+                </svg>
+              )}
+              {props.memberText}
+            </p>
+            <div className="text-gray-900 font-bold text-xl mb-2">
+              {props.cardTitle}
+            </div>
+            <p className="text-gray-700 text-base">{props.cardDescription}</p>
+          </div>
+          <div className="flex items-center">
+            {props.authorImage && (
+              <img
+                className="w-10 h-10 rounded-full mr-4"
+                src={props.authorImage}
+                alt="Avatar"
+              />
+            )}
+            <div className="text-sm">
+              <p className="text-gray-900 leading-none">{props.authorName}</p>
+              <p className="text-gray-600">{props.publishedDate}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  );
 }
+
+export default Card;
